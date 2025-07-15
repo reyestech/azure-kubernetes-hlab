@@ -20,7 +20,7 @@ This project simulates a real-world data center environment by deploying a Kuber
 
 This lab offers a user-friendly learning experience for students, veterans, and professionals who may not have access to high-end physical hardware. By utilizing Azure’s $100 free student credit, this homelab provides an affordable and flexible foundation for individuals seeking to build their skills toward a bare-metal, gradual, or on-premises homelab setup. Additionally, it serves as early preparation for certifications such as the Kubernetes and Cloud Native Associate (KCNA) by providing guided exposure to YAML, Helm, CLI tools, monitoring, and system troubleshooting—all within a realistic simulation.
 
-## 🏗️ Project Overview
+## 🏗️ **Project Overview**  
 
 We deploy a lightweight AKS cluster with the following architecture:
 
@@ -75,33 +75,6 @@ The project emphasizes real-world operations, including:
 >
 > * Enabling Azure Monitor for AKS
 > * Reviewing pod metrics and node health
-
-
-
-
----
----
----
-
-📜 **Introduction**  
-
-This project was developed as a hands-on way to simulate a real-world data center scenario by building a mini Kubernetes homelab in the cloud using Microsoft Azure. The setup consists of one control plane node and two worker nodes, creating a simple yet powerful configuration with Azure Kubernetes Service (AKS). It serves both as a learning environment and as a stepping stone for transitioning to self-hosted, bare-metal deployments.
-
-The primary goal is to explore infrastructure operations and container orchestration without the need for an expensive on-premise setup. By utilizing Azure's student or free-tier credits, this project provides an affordable and low-risk starting point for IT professionals, veterans, and individuals seeking to transition into cloud or infrastructure roles. It is designed with future homelab builders in mind, providing a repeatable and scalable approach to learning the fundamentals of Kubernetes before investing significant money or resources. If you are starting or preparing for certifications like the KCNA, this project is an excellent starting point.
-
-🏗️ Project Overview
-
-We deploy a lightweight AKS cluster with the following architecture:
-
-1. 1x base node (control plane)
-2. 2x worker nodes
-3. NGINX workload with a LoadBalancer
-4. Persistent Volume for basic stateful workload
-
-The project emphasizes real-world operations, including:
-1. YAML manifests
-2. PowerShell and CLI setup
-3. Monitoring integration
 
 ## 🖼 Architecture
 
@@ -164,7 +137,7 @@ az aks get-credentials --resource-group $rg --name $cluster
 kubectl get nodes -o wide
 ```
 
-\### What This Does
+\### What This Does
 Creates three Linux VMs as Kubernetes workers, attaches them to a managed control plane, and pipes metrics to Log Analytics for uptime diagnostics.
 
 ---
