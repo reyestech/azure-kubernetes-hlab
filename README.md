@@ -1,9 +1,9 @@
 
-# Azure Kubernetes Mini‑Homelab (3 Nodes)
+# **Azure Kubernetes Mini‑Homelab (3 Nodes)**
 
 This document serves as a comprehensive guide for deploying and managing a three-node Kubernetes cluster using Microsoft Azure. The purpose of this lab is to cultivate practical skills in provisioning, container orchestration, networking, and observability—essential competencies for contemporary infrastructure roles.
 
-[![Azure AKS](https://img.shields.io/badge/Azure-AKS-blue?logo=azure-kubernetes-service\&logoColor=white)](https://azure.microsoft.com/)  [![Kubernetes](https://img.shields.io/badge/K8s-1.30-blue?logo=kubernetes)](https://kubernetes.io/)  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
+[![Azure AKS](https://img.shields.io/badge/Azure-AKS-blue?logo=azure-kubernetes-service\&logoColor=white)](https://azure.microsoft.com/)  [![Kubernetes](https://img.shields.io/badge/K8s-1.30-blue?logo=kubernetes)](https://kubernetes.io/) 
 
 ---
 
@@ -11,7 +11,7 @@ This document serves as a comprehensive guide for deploying and managing a three
   <img src="https://github.com/user-attachments/assets/1e47cef4-28c7-4aa7-b488-15b21b32d0cc" width="70%">
 </p>
 
-## 📜 Introduction
+## 📜 **Introduction**
 
 This repository outlines the steps required to set up a lightweight three-node Kubernetes environment using Azure Kubernetes Service (AKS). Given that the cluster is entirely hosted in the cloud, individuals can engage in experimental learning safely and cost-effectively, making this resource particularly valuable for learners who have yet to acquire physical hardware. All necessary scripts and manifests are included, enabling either precise replication of the lab or its extension into an on-premises homelab in the future.
 
@@ -260,7 +260,7 @@ This roadmap outlines the steps necessary to migrate this cloud-based lab to on-
 
 ---
 
-## ✅ Conclusion
+## ✅ **Conclusion**
 
 This mini-homelab exemplifies a comprehensive Kubernetes deployment utilizing cost-effective cloud resources. The lab encompasses provisioning, storage, networking, observability, and autoscaling, thereby establishing a solid foundation for further exploration in both cloud and on-premises environments.
 
