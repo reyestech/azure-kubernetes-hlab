@@ -14,6 +14,75 @@
 
 ---
 
+## 📜 **Introduction**  
+
+This project simulates a real-world data center environment by deploying a Kubernetes mini-homelab using Azure Kubernetes Service (AKS). It consists of one control plane node and two worker nodes, forming a lightweight 3-node AKS cluster. The goal of this project is to explore and practice core cloud infrastructure concepts, container orchestration, and cluster management in a structured and cost-effective way.
+
+This lab offers a user-friendly learning experience for students, veterans, and professionals who may not have access to high-end physical hardware. By utilizing Azure’s $100 free student credit, this homelab provides an affordable and flexible foundation for individuals seeking to build their skills toward a bare-metal, gradual, or on-premises homelab setup. Additionally, it serves as early preparation for certifications such as the Kubernetes and Cloud Native Associate (KCNA) by providing guided exposure to YAML, Helm, CLI tools, monitoring, and system troubleshooting—all within a realistic simulation.
+
+## 🏗️ Project Overview
+
+We deploy a lightweight AKS cluster with the following architecture:
+
+1. 1x base node (control plane)
+2. 2x worker nodes
+3. NGINX workload with a LoadBalancer
+4. Persistent Volume for basic stateful workload
+
+The project emphasizes real-world operations, including:
+
+1. YAML manifests
+2. PowerShell and CLI setup
+3. Monitoring integration
+
+## 🔧 Prerequisites
+
+> ### 💻 **Environment & Access**
+>
+> * Microsoft Azure subscription (or free \$100 student credit)
+> * *(Optional)* Public DNS entry (for ingress setup)
+>
+> ### 🧰 **Tools & CLIs**
+>
+> * `Azure CLI` ≥ v2.60
+> * `kubectl` ≥ v1.30
+> * `Helm` v3 or later
+>
+> 💡 *Prefer GUI? You can complete this project through the Azure Portal instead of using the CLI. All CLI commands below are fully copy-paste ready.*
+
+## 🛠️ Skills 
+
+> ### ☁️ **Cloud Infrastructure**
+>
+> * Provisioning AKS clusters
+> * Managing control plane and worker nodes
+> * Load balancing and persistent volumes
+>
+> ### ⚙️ **Automation & CLI Tools**
+>
+> * Azure CLI scripting
+> * PowerShell terminal usage
+> * Managing clusters with `kubectl`
+> * Deploying with Helm charts
+>
+> ### 🧱 **Kubernetes & Networking**
+>
+> * Writing and applying YAML manifests
+> * Exposing services with LoadBalancers
+> * Stateful workload setup using volumes
+>
+> ### 📊 **Monitoring & Observability**
+>
+> * Enabling Azure Monitor for AKS
+> * Reviewing pod metrics and node health
+
+
+
+
+---
+---
+---
+
 📜 **Introduction**  
 
 This project was developed as a hands-on way to simulate a real-world data center scenario by building a mini Kubernetes homelab in the cloud using Microsoft Azure. The setup consists of one control plane node and two worker nodes, creating a simple yet powerful configuration with Azure Kubernetes Service (AKS). It serves both as a learning environment and as a stepping stone for transitioning to self-hosted, bare-metal deployments.
