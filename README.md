@@ -22,6 +22,34 @@
 7. [Homelab Replication](#homelab-replication)
 8. [Cleanup](#cleanup)
 
+
+📌 **Introduction**  
+This project simulates a real-world data center scenario by creating a Kubernetes mini-homelab on Microsoft Azure. It consists of one control plane node and two worker nodes, forming a 3-node Azure Kubernetes Service (AKS) cluster. This project is designed as part of a hands-on portfolio to prepare for Data Center Technician roles, such as those in Google's Global Server Operations team. Additionally, it serves as a foundation for a future self-hosted homelab.
+
+---
+
+🏗️ Project Overview
+
+We deploy a lightweight AKS cluster with the following architecture:
+
+1x base node (control plane)
+
+2x worker nodes
+
+NGINX workload with a LoadBalancer
+
+Persistent Volume for basic stateful workload
+
+The project emphasizes real-world operations including:
+
+YAML manifests
+
+PowerShell and CLI setup
+
+Monitoring integration
+
+Cluster architecture familiar to data center layouts
+
 ---
 
 ## 🖼 Architecture
@@ -268,11 +296,15 @@ Shows self‑healing capacity management—critical for meeting SLA uptime.
 ---
 ---
 
-## 🧹 Cleanup
+##🧹 Cleanup
 
 ```bash
 az group delete --name rg-k8s-homelab --yes --no-wait
 ```
+
+✅ Conclusion
+This AKS mini-homelab project illustrates practical technical skills in setting up and managing cloud infrastructure. It is directly relevant to Data Center Technician roles, as it demonstrates hardware simulation, network deployment, and container orchestration within a scalable and reliable environment. This project not only showcases current capabilities but also serves as a blueprint for expanding into a full physical homelab in the future.
+
 
 ![6386134ab603091521e212c6_60e452a399f5cfb803e6efbf_deployment_process](https://github.com/user-attachments/assets/772a3640-1cc9-429d-861e-60b74eca9a9e)
 
