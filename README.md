@@ -2,55 +2,34 @@
 
 > **Hands‑on lab to mimic data‑center operations in the cloud & later on bare metal**
 >
-
-![giphy](https://github.com/user-attachments/assets/1e47cef4-28c7-4aa7-b488-15b21b32d0cc)
-
 ---
 
 [![Azure Build](https://img.shields.io/badge/Azure-AKS-blue?logo=azure-kubernetes-service\&logoColor=white)](https://azure.microsoft.com/)  [![Kubernetes](https://img.shields.io/badge/K8s-1.30-blue?logo=kubernetes)](https://kubernetes.io/)  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
-## 📜 Table of Contents
-
-1. [Architecture](#architecture)
-2. [Prerequisites](#prerequisites)
-3. [Step 1 – Cluster Setup](#step-1--cluster-setup)
-4. [Step 2 – Persistent NGINX App](#step-2--persistent-nginx-app)
-5. [Step 3 – Ingress + Health Probes](#step-3--ingress--health-probes)
-6. [Step 4 – Monitoring + Autoscaling](#step-4--monitoring--autoscaling)
-7. [Homelab Replication](#homelab-replication)
-8. [Cleanup](#cleanup)
-
-
-📌 **Introduction**  
-This project simulates a real-world data center scenario by creating a Kubernetes mini-homelab on Microsoft Azure. It consists of one control plane node and two worker nodes, forming a 3-node Azure Kubernetes Service (AKS) cluster. This project is designed as part of a hands-on portfolio to prepare for Data Center Technician roles, such as those in Google's Global Server Operations team. Additionally, it serves as a foundation for a future self-hosted homelab.
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1e47cef4-28c7-4aa7-b488-15b21b32d0cc" width="70%">
+</p>
 
 ---
+
+📜 **Introduction**  
+This project simulates a real-world data center scenario by creating a Kubernetes mini-homelab on Microsoft Azure. It consists of one control plane node and two worker nodes, forming a 3-node Azure Kubernetes Service (AKS) cluster. This project is designed as part of a hands-on portfolio to prepare for Data Center Technician roles, such as those in Google's Global Server Operations team. Additionally, it serves as a foundation for a future self-hosted homelab.
 
 🏗️ Project Overview
 
 We deploy a lightweight AKS cluster with the following architecture:
 
-1x base node (control plane)
+1. 1x base node (control plane)
+2. 2x worker nodes
+3. NGINX workload with a LoadBalancer
+4. Persistent Volume for basic stateful workload
 
-2x worker nodes
-
-NGINX workload with a LoadBalancer
-
-Persistent Volume for basic stateful workload
-
-The project emphasizes real-world operations including:
-
-YAML manifests
-
-PowerShell and CLI setup
-
-Monitoring integration
-
-Cluster architecture familiar to data center layouts
-
----
+The project emphasizes real-world operations, including:
+1. YAML manifests
+2. PowerShell and CLI setup
+3. Monitoring integration
 
 ## 🖼 Architecture
 
