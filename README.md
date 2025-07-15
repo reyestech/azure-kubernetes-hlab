@@ -3,6 +3,8 @@
 > **Hands‑on lab to mimic data‑center operations in the cloud & later on bare metal**
 >
 
+![giphy](https://github.com/user-attachments/assets/1e47cef4-28c7-4aa7-b488-15b21b32d0cc)
+
 ---
 
 [![Azure Build](https://img.shields.io/badge/Azure-AKS-blue?logo=azure-kubernetes-service\&logoColor=white)](https://azure.microsoft.com/)  [![Kubernetes](https://img.shields.io/badge/K8s-1.30-blue?logo=kubernetes)](https://kubernetes.io/)  [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
@@ -271,6 +273,8 @@ Shows self‑healing capacity management—critical for meeting SLA uptime.
 ```bash
 az group delete --name rg-k8s-homelab --yes --no-wait
 ```
+
+![6386134ab603091521e212c6_60e452a399f5cfb803e6efbf_deployment_process](https://github.com/user-attachments/assets/772a3640-1cc9-429d-861e-60b74eca9a9e)
 
 ---
 
