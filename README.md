@@ -286,10 +286,16 @@ az group delete --name rg-k8s-homelab --yes --no-wait
 
 ✅ **Conclusion**
 
-This AKS mini-homelab exemplifies a practical and resource-conscious approach to acquiring modern infrastructure skills. It demonstrates my initiative in building a scalable Kubernetes cluster, troubleshooting cloud deployments, and working with real-world tools, including YAML, the command-line interface (CLI), and observability stacks.  
+This AKS mini-homelab project emphasizes essential practical skills in provisioning and managing cloud-based Kubernetes clusters. It showcases real-world capabilities in deploying infrastructure, orchestrating containers, and setting up networks in a scalable and cost-effective environment. With a clear focus on foundational tools and automation practices, this project serves as both a demonstration of skills and a stepping stone toward building a fully self-hosted physical homelab.
 
-Instead of waiting to invest in expensive hardware, I opted to utilize free cloud credits and set time-bound goals. This project not only highlights my technical competency but also showcases my self-direction, adaptability, and passion for continuous learning. It is a living lab—one that I plan to continue evolving as I deepen my experience and work towards more advanced certifications and infrastructure roles.
+As the next step, this lab can be expanded to include:
 
+* Custom Ingress controllers (e.g., NGINX Ingress, Traefik)
+* Real-time logging (e.g., Fluentd, ELK)
+* CI/CD pipelines using GitHub Actions
+* Integration with Azure DevOps or other cloud services
+
+This project is perfect for individuals interested in exploring DevOps, cloud administration, or managing container-based infrastructure in a controlled and cost-effective environment.
 
 ![6386134ab603091521e212c6_60e452a399f5cfb803e6efbf_deployment_process](https://github.com/user-attachments/assets/772a3640-1cc9-429d-861e-60b74eca9a9e)
 
