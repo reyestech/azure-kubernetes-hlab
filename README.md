@@ -12,7 +12,7 @@ This document serves as a comprehensive guide for deploying and managing a three
 ---
 
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/1e47cef4-28c7-4aa7-b488-15b21b32d0cc" width="70%">
+  <img src="https://github.com/user-attachments/assets/62155ae2-c00b-426a-852c-e291f24e7e11" alt="syslog-workbook-cluste - Azure Kubernetes GIFs" width="90%" />
 </p>
 
 ## 📜 **Introduction**
