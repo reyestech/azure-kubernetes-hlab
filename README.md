@@ -3,6 +3,8 @@
   <img src="https://github.com/user-attachments/assets/b1646300-912a-4763-8cb9-0ef8c2c4bedf" width="80%">
 </p>
 
+---
+
 # **Azure Kubernetes Mini‑Homelab (3 Nodes)**
 
 This document serves as a comprehensive guide for deploying and managing a three-node Kubernetes cluster using Microsoft Azure. The purpose of this lab is to cultivate practical skills in provisioning, container orchestration, networking, and observability—essential competencies for contemporary infrastructure roles.
@@ -27,6 +29,7 @@ This repository outlines the steps required to set up a lightweight three-node K
 4. Integrate monitoring and autoscaling
 
 Utilization of Azure’s free tier or student credits further contributes to minimizing costs while individuals refine their Kubernetes expertise.
+
 ---
 
 ## 🏗️ Azure Architecture Snapshot
