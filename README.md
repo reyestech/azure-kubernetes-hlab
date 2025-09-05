@@ -5,7 +5,7 @@
 
 ---
 
-# **Azure Kubernetes Mini‑Homelab (3 Nodes)**
+# **Azure Kubernetes Mini‑Homelab - AKS with 3 Nodes (In-progress)** 
 
 This document serves as a comprehensive guide for deploying and managing a three-node Kubernetes cluster using Microsoft Azure. The purpose of this lab is to cultivate practical skills in provisioning, container orchestration, networking, and observability—essential competencies for contemporary infrastructure roles.
 
@@ -271,14 +271,45 @@ This roadmap outlines the steps necessary to migrate this cloud-based lab to on-
 
 This mini-homelab will exemplify a comprehensive Kubernetes deployment utilizing cost-effective cloud resources. The lab encompasses provisioning, storage, networking, observability, and autoscaling, thereby establishing a solid foundation for further exploration in both cloud and on-premises environments.
 
-**Next Enhancements**
 
-* Replace the demo NGINX app with a production microservice
-* Add GitHub Actions for CI/CD automation
-* Implement a full observability stack (Prometheus, Grafana, Loki)
-* Simulate node failures and document recovery procedures
+🚀 **Next Enhancements (Overview)**
 
+* Infrastructure & Migration: Expand AKS into a private, policy-enforced setup with ACR, networking guardrails, and IaC. Add a runbook to migrate the same workload from Azure VMs to a 3-node bare-metal cluster (mini PCs) to simulate real datacenter infra.
+* Automation: Use GitHub Actions with OIDC for full CI/CD—build, scan, push to ACR, deploy to AKS, run smoke tests, and enforce policies automatically.
+* Resilience: Add Velero for backups, autoscaling for efficiency, and simple chaos tests (node/pod failures) with runbooks to practice recovery.
+* SOC Layer: Connect AKS + Defender logs into Microsoft Sentinel, build sample analytic rules, and trigger Logic Apps playbooks for automated response.
+* Docs & Ops Guides: Create a reference architecture diagram, migration guide, and incident runbooks so anyone can deploy, monitor, and recover the setup end-to-end.
 > *Feel free to fork this repo, adapt it to your environment, and share improvements via pull requests.*
+
+| Layer / Feature  | Implementation                                  | Purpose                                  |
+| ---------------- | ----------------------------------------------- | ---------------------------------------- |
+| Control Plane    | Managed by Azure                                | API server, scheduler, etcd              |
+| Worker Nodes (3) | `Standard_B2s` VMs                              | Run pods and services                    |
+| Workload Example | NGINX Deployment (2 replicas)                   | Demonstrate HA web service               |
+| Storage          | Azure Disk PVC                                  | Persist data across pod restarts         |
+| Networking       | LoadBalancer Service + Ingress                  | Expose application externally            |
+| Observability    | Azure Monitor + Metrics-Server + HPA            | Logs, metrics, auto-scaling              |
+| Security (SOC)   | Log Analytics + Microsoft Sentinel + Logic Apps | Threat detection + automated response    |
+| Resilience       | Velero Backups + Chaos Testing                  | Backup/restore + failure recovery drills |
+| Migration Path   | Bare-metal 3-node cluster (mini PCs)            | Simulate real datacenter infrastructure  |
+
+
+```
+┌──────────────────────────────────────────┐                 ┌──────────────────────────────────────────┐
+│             Azure AKS (managed)          │      migrate    │           Bare-Metal K8s Cluster         │
+│──────────────────────────────────────────│  ───────────▶   |─────────────────────────────────────── ──│
+│ • node-0/1/2: Standard_B2s (workers)     │   same app      │ • PN64 (master): kubeadm control-plane   │
+│                                          │  manifests +    │ • NUC-1 (worker): kubeadm node           │
+│ Workload: NGINX (replicas=2)             │  env values     │ • NUC-2 (worker): kubeadm node           │
+│ Storage: Azure Disk PVC                  │                 │                                          │
+│ Ingress: Public LB + Ingress Controller  │                 │ Storage: NFS / local-path PVC            │
+│ Observability: Log Analytics + Sentinel  │                 │ Ingress: MetalLB (L2) + Ingress          │
+│ Security: Azure Policy + Defender        │                 │ Observability: Prometheus + Grafana      │
+└──────────────────────────────────────────┘                 └──────────────────────────────────────────┘
+                         ▲                                                         ▲
+                         │                                                         │
+                 GitHub Actions (OIDC) — build → scan → push (ACR) → deploy → smoke test
+```
 
 ![6386134ab603091521e212c6_60e452a399f5cfb803e6efbf_deployment_process](https://github.com/user-attachments/assets/772a3640-1cc9-429d-861e-60b74eca9a9e)
 
