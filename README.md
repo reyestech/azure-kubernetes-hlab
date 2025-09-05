@@ -280,45 +280,61 @@ This lab provides a **portable AKS foundation** with security, observability, an
 
 ---
 
-### 🚀 **Next Enhancements (Overview)**
+# 🚀 **Next Enhancements (Overview)**
+### Step 1 — Infrastructure & Migration
+- [ ] Expand AKS into a **private, policy-enforced** cluster (ACR, networking guardrails, IaC).
+- [ ] Add a **migration runbook** to redeploy the same app on a **3-node bare-metal** cluster.
 
-* Infrastructure & Migration: Expand AKS into a private, policy-enforced setup with ACR, networking guardrails, and IaC. Add a runbook to migrate the same workload from Azure VMs to a 3-node bare-metal cluster (mini PCs) to simulate real datacenter infra.
-* Automation: Use GitHub Actions with OIDC for full CI/CD—build, scan, push to ACR, deploy to AKS, run smoke tests, and enforce policies automatically.
-* Resilience: Add Velero for backups, autoscaling for efficiency, and simple chaos tests (node/pod failures) with runbooks to practice recovery.
-* SOC Layer: Connect AKS + Defender logs into Microsoft Sentinel, build sample analytic rules, and trigger Logic Apps playbooks for automated response.
-* Docs & Ops Guides: Create a reference architecture diagram, migration guide, and incident runbooks so anyone can deploy, monitor, and recover the setup end-to-end.
-> *Feel free to fork this repo, adapt it to your environment, and share improvements via pull requests.*
+### Step 2 — Automation
+- [ ] Use **GitHub Actions (OIDC)** for full CI/CD: **build → scan → push (ACR) → deploy → smoke test**.
+- [ ] Apply **Azure Policy** during deployment for guardrails.
 
+### Step 3 — Resilience
+- [ ] Add **Velero backups** and run **chaos tests** (node/pod failures).
+- [ ] Document **runbooks** for recovery.
 
+### Step 4 — SOC Layer
+- [ ] Forward **AKS + Defender** logs into **Log Analytics + Microsoft Sentinel**.
+- [ ] Create **analytic rules** and trigger **Logic Apps playbooks** for automated response.
+
+----
+
+## 📊 Feature Mapping
+| Layer / Feature | Azure (AKS)                         | Bare-Metal                                                           |
+| --------------- | ----------------------------------- | -------------------------------------------------------------------- |
+| Hypervisor      | Azure fabric (managed)              | **Proxmox VE**                                                       |
+| Control Plane   | Managed by Azure                    | **PN64 master (kubeadm)**                                            |
+| Workers         | 3× `Standard_B2s` VMs               | **NUC-1**, **NUC-2** (kubeadm)                                       |
+| Backup/Helper   | n/a                                 | **Raspberry Pi** (backups/ops helper)                                |
+| Ingress         | Public LB + Ingress                 | **MetalLB (L2)** + Ingress                                           |
+| Storage         | **Azure Disk PVC**                  | **NFS / local-path PVC**                                             |
+| Observability   | **Azure Monitor + Log Analytics**   | **Prometheus + Grafana**                                             |
+| SOC / Security  | **Microsoft Sentinel** (+ Defender) | **ELK on Minisforum Mini PC ** (Beats/Fluent Bit → LS → ES → Kibana) |
+
+----
+
+## ⚙️ Migration Topology
+### Topology Option 1
 ```
-┌──────────────────────────────────────────┐                 ┌──────────────────────────────────────────┐
-│             Azure AKS (managed)          │      migrate    │           Bare-Metal K8s Cluster         │
-│──────────────────────────────────────────│  ───────────▶   |─────────────────────────────────────── ──│
-│ • node-0/1/2: Standard_B2s (workers)     │   same app      │ • PN64 (master): kubeadm control-plane   │
-│                                          │  manifests +    │ • NUC-1 (worker): kubeadm node           │
-│ Workload: NGINX (replicas=2)             │  env values     │ • NUC-2 (worker): kubeadm node           │
-│ Storage: Azure Disk PVC                  │                 │                                          │
-│ Ingress: Public LB + Ingress Controller  │                 │ Storage: NFS / local-path PVC            │
-│ Observability: Log Analytics + Sentinel  │                 │ Ingress: MetalLB (L2) + Ingress          │
-│ Security: Azure Policy + Defender        │                 │ Observability: Prometheus + Grafana      │
-└──────────────────────────────────────────┘                 └──────────────────────────────────────────┘
-                         ▲                                                         ▲
-                         │                                                         │
-                 GitHub Actions (OIDC) — build → scan → push (ACR) → deploy → smoke test
+┌─────────────────────────────────────────────┐   Migrate   ┌──────────────────────────────────────────────────┐
+│              Azure AKS (managed)            │  ───────▶   │                Bare-Metal K8s Cluster           │
+│─────────────────────────────────────────────│             │──────────────────────────────────────────────────│
+│ Control Plane: Managed by Azure             │             │ Hypervisor: Proxmox                              │
+│=============================================│             │==================================================│    
+│ Worker Node 0: Standard_B2s VM              │             │ Control Plane: PN64 (master, kubeadm)            │
+│---------------------------------------------│             │--------------------------------------------------│
+│ Worker Node 1: Standard_B2s VM              │             │ Worker Node 1: NUC-1 (kubeadm worker)            │
+│---------------------------------------------│             │--------------------------------------------------│
+│ Worker Node 2: Standard_B2s VM              │             │ Worker Node 2: NUC-2 (kubeadm worker)            │
+│---------------------------------------------│             │--------------------------------------------------│       
+│ • Workload: NGINX (2 replicas)              │             │ • Backup Node: Raspberry Pi (backups/ops helper) │
+│ • Storage: Azure Disk PVC                   │             │ • Workload: NGINX (2 replicas)                   │
+│ • Ingress: Public LB + Ingress Controller   │             │ • Storage: NFS / local-path PVC                  │
+│ • Observability: Azure Monitor+Log Analytics│             │ • Ingress: MetalLB (L2) + Ingress Controller     │
+│ • SOC/Security: **Microsoft Sentinel**      │             │ • Observability: Prometheus + Grafana            │
+│ • (AKS + Defender logs → Sentinel analytics)│             │ • SOC/Security: **ELK on Minisforum Nini PC**    │
+│                                             │             │ • (Beats/Fluent-Bit → Logstash → Elasticsearch → │
+│                                             │             │ • Kibana (optional detection rules/SOAR hooks)   │
+└─────────────────────────────────────────────┘             └──────────────────────────────────────────────────┘
 ```
-
-| Layer / Feature  | Implementation                                  | Purpose                                  |
-| ---------------- | ----------------------------------------------- | ---------------------------------------- |
-| Control Plane    | Managed by Azure                                | API server, scheduler, etcd              |
-| Worker Nodes (3) | `Standard_B2s` VMs                              | Run pods and services                    |
-| Workload Example | NGINX Deployment (2 replicas)                   | Demonstrate HA web service               |
-| Storage          | Azure Disk PVC                                  | Persist data across pod restarts         |
-| Networking       | LoadBalancer Service + Ingress                  | Expose application externally            |
-| Observability    | Azure Monitor + Metrics-Server + HPA            | Logs, metrics, auto-scaling              |
-| Security (SOC)   | Log Analytics + Microsoft Sentinel + Logic Apps | Threat detection + automated response    |
-| Resilience       | Velero Backups + Chaos Testing                  | Backup/restore + failure recovery drills |
-| Migration Path   | Bare-metal 3-node cluster (mini PCs)            | Simulate real datacenter infrastructure  |
-
-
----
 
