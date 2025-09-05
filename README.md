@@ -1,20 +1,21 @@
 
+
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/b1646300-912a-4763-8cb9-0ef8c2c4bedf" width="80%">
+  <img width="2824" height="954" alt="Azure AKS World Banner" src="https://github.com/user-attachments/assets/143a5de9-76e1-4f4d-b888-6822f905c208" />
 </p>
 
 ---
 
-# **Azure Kubernetes Mini‑Homelab - AKS with 3 Nodes (In-progress)** 
+# **Azure Kubernetes Mini‑lab - AKS with 3 Nodes 🚧 (In-progress)** 
 
 This document serves as a comprehensive guide for deploying and managing a three-node Kubernetes cluster using Microsoft Azure. The purpose of this lab is to cultivate practical skills in provisioning, container orchestration, networking, and observability—essential competencies for contemporary infrastructure roles.
 
 [![Azure AKS](https://img.shields.io/badge/Azure-AKS-blue?logo=azure-kubernetes-service\&logoColor=white)](https://azure.microsoft.com/)  [![Kubernetes](https://img.shields.io/badge/K8s-1.30-blue?logo=kubernetes)](https://kubernetes.io/) 
 
----
-
 <p align="center">
-  <img src="https://github.com/user-attachments/assets/62155ae2-c00b-426a-852c-e291f24e7e11" alt="syslog-workbook-cluste - Azure Kubernetes GIFs" width="90%" />
+  <img src="https://github.com/user-attachments/assets/0f31468a-6d38-48ca-888c-2dee228c4495" 
+       alt="AKS Homelab Banner" 
+       width="720"/>
 </p>
 
 
@@ -243,44 +244,11 @@ Generate load and watch scaling with `kubectl get hpa -w`.
 
 ---
 
-## 🏡 Homelab Transition Plan
-
-This roadmap outlines the steps necessary to migrate this cloud-based lab to on-premises hardware that users may already possess.
-
-| Azure Feature         | Bare‑Metal Replacement                                 |
-| --------------------- | ------------------------------------------------------ |
-| Managed Control Plane | **ASUS ExpertCenter PN64** (i5) running `kubeadm init` |
-| Worker Nodes (3)      | **Intel NUC11PAKi5 × 2** running `kubeadm join`        |
-| Azure Disk PVC        | NFS share on PN64 or `local-path-provisioner`          |
-| Azure LoadBalancer    | **MetalLB** (Layer‑2 mode)                             |
-| Azure Monitor         | **Prometheus + Grafana** via Helm                      |
-
-> **Hypervisors:** Proxmox VE (preferred) or VMware ESXi Free
-
-### Bare‑Metal Cluster Diagram
-
-```
-┌───────────────────────────────────────────┐
-│           Bare‑Metal K8s Cluster          │
-│───────────────────────────────────────────│
-│  • PN64  (master)  – kubeadm control‑plane│
-│  • NUC‑1 (worker)  – kubeadm node         │
-│  • NUC‑2 (worker)  – kubeadm node         │
-│                                           │
-│  NFS / local‑path PVC • MetalLB • Ingress │
-└───────────────────────────────────────────┘
-```
-
----
-
-## ✅ **Conclusion**
-This lab provides a **portable AKS foundation** with security, observability, and automation that runs in Azure and can be **migrated to a 3-node bare-metal cluster** to simulate a real datacenter infrastructure. It demonstrates the full lifecycle—**deploy → secure → observe → scale → recover**—while highlighting the design trade-offs an Azure Cloud/Security Architect considers. Because the repository includes **ready-to-run scripts and manifests**, learners can quickly reproduce the environment or evolve it into their own on-premises homelab.
-
-
 ---
 
 # 🚀 **Next Enhancements (Overview)**
-
+## 🏡 Homelab Transition Plan
+This roadmap outlines the steps necessary to migrate this cloud-based lab to on-premises hardware that users may already possess.
 ### Step 1 — Infrastructure & Migration
 - [ ] Expand AKS into a **private, policy-enforced** cluster (ACR, networking guardrails, IaC).
 - [ ] Add a **migration runbook** to redeploy the same app on a **3-node bare-metal** cluster (Proxmox VE).
@@ -302,6 +270,8 @@ This lab provides a **portable AKS foundation** with security, observability, an
 - [ ] On bare-metal, forward logs via **Fluent Bit → ELK (Minisforum Mini PC)** for a SOC-lite setup.
 - [ ] Build **Kibana dashboards** + basic detection rules (privileged pod creation, failed logins).
 
+> **Hypervisors:** Proxmox VE (preferred) or VMware ESXi Free
+> 
 ----
 
 ## ⚙️ Migration Topology (Azure ↔ Bare-Metal)
@@ -344,3 +314,13 @@ This lab provides a **portable AKS foundation** with security, observability, an
 | SOC / Security  | **Microsoft Sentinel** (+ Defender, Logic Apps SOAR) | **ELK on Minisforum Mini PC** (Beats/Fluent Bit → Logstash → Elasticsearch → Kibana) |
 
 -
+---
+
+## ✅ **Conclusion**
+This lab provides a **portable AKS foundation** with security, observability, and automation that runs in Azure and can be **migrated to a 3-node bare-metal cluster** to simulate a real datacenter infrastructure. It demonstrates the full lifecycle—**deploy → secure → observe → scale → recover**—while highlighting the design trade-offs an Azure Cloud/Security Architect considers. Because the repository includes **ready-to-run scripts and manifests**, learners can quickly reproduce the environment or evolve it into their own on-premises homelab.
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/62155ae2-c00b-426a-852c-e291f24e7e11" 
+       alt="syslog-workbook-cluster - Azure Kubernetes GIFs" 
+       width="45%" />
+</p>
