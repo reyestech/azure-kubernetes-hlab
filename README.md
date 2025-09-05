@@ -17,18 +17,24 @@ This document serves as a comprehensive guide for deploying and managing a three
   <img src="https://github.com/user-attachments/assets/62155ae2-c00b-426a-852c-e291f24e7e11" alt="syslog-workbook-cluste - Azure Kubernetes GIFs" width="90%" />
 </p>
 
-## 📜 **Introduction**
 
-This repository outlines the steps required to set up a lightweight three-node Kubernetes environment using Azure Kubernetes Service (AKS). Given that the cluster is entirely hosted in the cloud, individuals can engage in experimental learning safely and cost-effectively, making this resource particularly valuable for learners who have yet to acquire physical hardware. All necessary scripts and manifests are included, enabling either precise replication of the lab or its extension into an on-premises homelab in the future.
+---
 
-**Learning objectives**
+## 📜 Introduction
 
-1. Deploy an AKS cluster with separate worker nodes
-2. Manage workloads with YAML and Helm
-3. Configure persistent storage & external load balancing
-4. Integrate monitoring and autoscaling
+This repository defines a lightweight, **three-node Azure Kubernetes Service (AKS)** lab that simulates datacenter operations in the cloud and can later be mirrored on a **3-node bare-metal cluster**. It focuses on **infrastructure-as-code**, **networking & storage basics**, **observability**, and a small **SOC layer** (Log Analytics + Microsoft Sentinel), so you can demonstrate design, security, and operations end-to-end.
 
-Utilization of Azure’s free tier or student credits further contributes to minimizing costs while individuals refine their Kubernetes expertise.
+**All necessary scripts and manifests are (and will continue to be) included** to keep the lab reproducible for learners—use it to **replicate the setup exactly** or extend it into an **on-prem homelab** when you have hardware.
+
+### Objectives
+- Provision AKS with a managed control plane and dedicated **system/user node pools**, **VNet integration**, and **ingress + load balancing**.
+- Manage workloads with **Kubernetes manifests and Helm**, including **HPA** and **Cluster Autoscaler**.
+- Configure persistent storage via **CSI drivers** (e.g., **Azure Disk** for RWO and **Azure Files** for multi-writer scenarios).
+- Integrate **Azure Monitor / Log Analytics**, enable **Microsoft Sentinel**, and add a sample **Logic Apps** playbook for automated response.
+
+> **Project status:** In progress. Some components may be incomplete or temporarily broken while I iterate. I’m actively adding scripts and manifests/manifests and updating documentation to ensure the full end-to-end scenario is working; known gaps and fixes will be tracked in issues.
+
+**Cost note:** AKS agent nodes, Sentinel/Defender, NAT Gateway, and WAF incur costs—use student credits/small SKUs and scale down when idle.
 
 ---
 
@@ -268,9 +274,7 @@ This roadmap outlines the steps necessary to migrate this cloud-based lab to on-
 ---
 
 ## ✅ **Conclusion**
-
-This mini-homelab will exemplify a comprehensive Kubernetes deployment utilizing cost-effective cloud resources. The lab encompasses provisioning, storage, networking, observability, and autoscaling, thereby establishing a solid foundation for further exploration in both cloud and on-premises environments.
-
+This lab provides a **portable AKS foundation** with security, observability, and automation that runs in Azure and can be **migrated to a 3-node bare-metal cluster** to simulate a real datacenter infrastructure. It demonstrates the full lifecycle—**deploy → secure → observe → scale → recover**—while highlighting the design trade-offs an Azure Cloud/Security Architect considers. Because the repository includes **ready-to-run scripts and manifests**, learners can quickly reproduce the environment or evolve it into their own on-premises homelab.
 
 🚀 **Next Enhancements (Overview)**
 
