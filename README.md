@@ -1,14 +1,12 @@
 
-
 <p align="center">
   <img width="2824" height="954" alt="Azure AKS World Banner" src="https://github.com/user-attachments/assets/143a5de9-76e1-4f4d-b888-6822f905c208" />
 </p>
 
 ---
 
-# **Azure Kubernetes Mini‑lab - AKS with 3 Nodes 🚧 (In-progress)** 
-
-This document serves as a comprehensive guide for deploying and managing a three-node Kubernetes cluster using Microsoft Azure. The purpose of this lab is to cultivate practical skills in provisioning, container orchestration, networking, and observability—essential competencies for contemporary infrastructure roles.
+# **Azure Kubernetes Mini‑lab - AKS with 3 Nodes** 
+This document serves as a comprehensive guide for deploying and managing a three-node Kubernetes cluster on Microsoft Azure, with the option to later replicate the setup on bare-metal hardware. The purpose of this lab is to cultivate practical skills in provisioning, container orchestration, networking, and observability—essential competencies for contemporary infrastructure roles.
 
 [![Azure AKS](https://img.shields.io/badge/Azure-AKS-blue?logo=azure-kubernetes-service\&logoColor=white)](https://azure.microsoft.com/)  [![Kubernetes](https://img.shields.io/badge/K8s-1.30-blue?logo=kubernetes)](https://kubernetes.io/) 
 
@@ -33,7 +31,7 @@ This repository defines a lightweight, **three-node Azure Kubernetes Service (AK
 - Configure persistent storage via **CSI drivers** (e.g., **Azure Disk** for RWO and **Azure Files** for multi-writer scenarios).
 - Integrate **Azure Monitor / Log Analytics**, enable **Microsoft Sentinel**, and add a sample **Logic Apps** playbook for automated response.
 
-> **Project status:** In progress. Some components may be incomplete or temporarily broken while I iterate. I’m actively adding scripts and manifests/manifests and updating documentation to ensure the full end-to-end scenario is working; known gaps and fixes will be tracked in issues.
+>**🚧Project status(In-progress):** Some components may be incomplete or temporarily broken while I iterate. I’m actively adding scripts and updating manifests/manifests and documentation to ensure the full end-to-end scenario is working. Known gaps and fixes will be tracked in issues.
 
 **Cost note:** AKS agent nodes, Sentinel/Defender, NAT Gateway, and WAF incur costs—use student credits/small SKUs and scale down when idle.
 
@@ -317,7 +315,7 @@ This roadmap outlines the steps necessary to migrate this cloud-based lab to on-
 ---
 
 ## ✅ **Conclusion**
-This lab provides a **portable AKS foundation** with security, observability, and automation that runs in Azure and can be **migrated to a 3-node bare-metal cluster** to simulate a real datacenter infrastructure. It demonstrates the full lifecycle—**deploy → secure → observe → scale → recover**—while highlighting the design trade-offs an Azure Cloud/Security Architect considers. Because the repository includes **ready-to-run scripts and manifests**, learners can quickly reproduce the environment or evolve it into their own on-premises homelab.
+This lab provides a **portable AKS foundation** with security, observability, and automation that runs in Azure and can be **migrated to a 3-node bare-metal cluster** to simulate a real datacenter infrastructure. It demonstrates the whole lifecycle—**deploy → secure → observe → scale → recover**—while highlighting the design trade-offs an Azure Cloud/Security Architect considers. Because the repository includes **ready-to-run scripts and manifests**, learners can quickly reproduce the environment or evolve it into their own on-premises homelab.
 
 <p align="center">
   <img src="https://github.com/user-attachments/assets/62155ae2-c00b-426a-852c-e291f24e7e11" 
