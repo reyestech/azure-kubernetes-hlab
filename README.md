@@ -269,7 +269,7 @@ This roadmap outlines the steps necessary to migrate this cloud-based lab to on-
 
 ## ✅ **Conclusion**
 
-This mini-homelab exemplifies a comprehensive Kubernetes deployment utilizing cost-effective cloud resources. The lab encompasses provisioning, storage, networking, observability, and autoscaling, thereby establishing a solid foundation for further exploration in both cloud and on-premises environments.
+This mini-homelab will exemplify a comprehensive Kubernetes deployment utilizing cost-effective cloud resources. The lab encompasses provisioning, storage, networking, observability, and autoscaling, thereby establishing a solid foundation for further exploration in both cloud and on-premises environments.
 
 **Next Enhancements**
 
