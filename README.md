@@ -84,23 +84,82 @@ This repository defines a lightweight, **three-node Azure Kubernetes Service (AK
 >
 > *All steps can be completed in the Azure Portal if you prefer GUI over CLI.*
 
+### Environment
+- [ ] Azure subscription (or \$100 student credit)
+- [ ] *(Optional)* Public DNS record for ingress
+
+### Tooling
+- [ ] **Azure CLI** ≥ 2.60
+- [ ] **kubectl** ≥ 1.30
+- [ ] **Helm 3**
+> *All steps can be completed in the Azure Portal if you prefer GUI over CLI.*
+> 
 ---
 
-## 🛠️ Skills Demonstrated
+## 🔧 Prerequisites
 
-| Category                | Topics Covered                                                         |
-| ----------------------- | ---------------------------------------------------------------------- |
-| Cloud Infrastructure    | AKS provisioning • Node‑pool management • Disk provisioning            |
-| Automation & CLI Tools  | Azure CLI scripting • PowerShell • `kubectl` administration            |
-| Kubernetes & Networking | YAML manifests • LoadBalancer services • Ingress • Health probes       |
-| Monitoring & Scaling    | Azure Monitor integration • Metrics‑Server • Horizontal Pod Autoscaler |
+### 🌐 Environment (Azure Phase)
+- [ ] Active **Azure subscription** (or $100 student credit)
+- [ ] *(Optional)* Public **DNS record** for ingress
+
+### 🛠 Tooling (Azure Phase)
+- [ ] **Azure CLI** ≥ 2.60
+- [ ] **kubectl** ≥ 1.30
+- [ ] **Helm 3**
+
+> ⚡ All Azure steps can also be completed in the **Azure Portal** if you prefer GUI over CLI.
+
+---
+
+### 🏡 Environment (Bare-metal Phase — 3 Nodes)
+- [ ] **3 physical machines** (or mini PCs), each with:
+  - 2–4 CPU cores
+  - 8–16 GB RAM
+  - SSD/NVMe storage (recommended)
+  - Wired Ethernet (recommended)
+- [ ] Reliable L2 network (same subnet for nodes)
+- [ ] *(Optional)* **Raspberry Pi 4B (2 GB+)** as **NFS** backup target for Proxmox `vzdump`
+
+### 🛠 Tooling (Bare-metal Phase)
+- [ ] **Proxmox VE** *(preferred)* or **VMware ESXi Free** (virtualization layer)
+- [ ] **kubeadm** (cluster bootstrap)
+- [ ] **kubectl** ≥ 1.30 (same as Azure)
+- [ ] **Helm 3** (same as Azure)
+- [ ] **MetalLB** (LoadBalancer on bare metal)
+- [ ] **Prometheus + Grafana** (observability stack)
+- [ ] *(Optional)* **ELK stack** (SOC-lite; Beats/Fluent Bit → Logstash → Elasticsearch → Kibana)
+
+
+---
+## 🛠️ Skills Demonstrated
+
+### 🌐 Azure Phase
+| Category                | Topics Covered                                                                 |
+| ----------------------- | ------------------------------------------------------------------------------ |
+| Cloud Infrastructure    | AKS provisioning • Node-pool management • Azure Disk/Azure Files CSI drivers   |
+| Automation & CLI Tools  | Azure CLI scripting • PowerShell • `kubectl` administration • Helm deployments |
+| Kubernetes & Networking | YAML manifests • LoadBalancer services • Ingress controllers • Health probes   |
+| Monitoring              | Azure Monitor integration • Metrics-Server • Horizontal Pod Autoscaler         |
+| Security & SOC          | Microsoft Sentinel integration • Defender for Cloud • Logic Apps playbooks     |
+
+---
+
+### 🏡 Bare-metal Phase
+| Category                  | Topics Covered                                                                     |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| Bare-metal Infrastructure | Proxmox VE setup • kubeadm bootstrap • Node provisioning on mini PCs/NUCs          |
+| Automation & CLI Tools    | `kubectl` administration • Helm deployments • Bash/Ansible (optional)              |
+| Kubernetes & Networking   | MetalLB (bare-metal LoadBalancer) • Ingress controllers • Service routing          |
+| Monitoring                | Prometheus + Grafana stack • Node exporter • Local logging                         |
+| Security & SOC            | ELK stack (Fluent Bit/Beats → Logstash → Elasticsearch → Kibana) • Detection rules |
+| Scaling & Resilience      | Horizontal Pod Autoscaler • Chaos testing • Velero backups • NFS storage setup     |
+
 
 ---
 
 ## 1️⃣ Cluster Provisioning
 
 **Rationale** — The implementation of three worker nodes ensures fundamental redundancy while maintaining cost efficiency. Azure manages the control plane, thereby reducing operational overhead.
-
 
 ```powershell
 $RG       = "rg‑aks‑homelab"
