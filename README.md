@@ -69,33 +69,6 @@ This repository defines a lightweight, **three-node Azure Kubernetes Service (AK
 
 ---
 
-## 🔧 Prerequisites
-
-> ### Environment
->
-> • Azure subscription (or \$100 student credit)
-> • *(Optional)* Public DNS record for ingress
->
-> ### Tooling
->
-> • **Azure CLI** ≥ 2.60
-> • **kubectl** ≥ 1.30
-> • **Helm 3**
->
-> *All steps can be completed in the Azure Portal if you prefer GUI over CLI.*
-
-### Environment
-- [ ] Azure subscription (or \$100 student credit)
-- [ ] *(Optional)* Public DNS record for ingress
-
-### Tooling
-- [ ] **Azure CLI** ≥ 2.60
-- [ ] **kubectl** ≥ 1.30
-- [ ] **Helm 3**
-> *All steps can be completed in the Azure Portal if you prefer GUI over CLI.*
-> 
----
-
 ## 🔧 Prerequisites
 
 ### 🌐 Environment (Azure Phase)
