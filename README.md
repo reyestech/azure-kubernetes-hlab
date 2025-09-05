@@ -276,65 +276,71 @@ This roadmap outlines the steps necessary to migrate this cloud-based lab to on-
 ## ✅ **Conclusion**
 This lab provides a **portable AKS foundation** with security, observability, and automation that runs in Azure and can be **migrated to a 3-node bare-metal cluster** to simulate a real datacenter infrastructure. It demonstrates the full lifecycle—**deploy → secure → observe → scale → recover**—while highlighting the design trade-offs an Azure Cloud/Security Architect considers. Because the repository includes **ready-to-run scripts and manifests**, learners can quickly reproduce the environment or evolve it into their own on-premises homelab.
 
-![6386134ab603091521e212c6_60e452a399f5cfb803e6efbf_deployment_process](https://github.com/user-attachments/assets/772a3640-1cc9-429d-861e-60b74eca9a9e)
 
 ---
 
 # 🚀 **Next Enhancements (Overview)**
+
 ### Step 1 — Infrastructure & Migration
 - [ ] Expand AKS into a **private, policy-enforced** cluster (ACR, networking guardrails, IaC).
-- [ ] Add a **migration runbook** to redeploy the same app on a **3-node bare-metal** cluster.
+- [ ] Add a **migration runbook** to redeploy the same app on a **3-node bare-metal** cluster (Proxmox VE).
+- [ ] Use **Raspberry Pi 4B (2 GB)** as an **NFS backup target** for Proxmox `vzdump` VM backups.
 
 ### Step 2 — Automation
 - [ ] Use **GitHub Actions (OIDC)** for full CI/CD: **build → scan → push (ACR) → deploy → smoke test**.
 - [ ] Apply **Azure Policy** during deployment for guardrails.
+- [ ] Implement **Workload Identity + Key Vault CSI** for secretless deployments.
 
 ### Step 3 — Resilience
-- [ ] Add **Velero backups** and run **chaos tests** (node/pod failures).
-- [ ] Document **runbooks** for recovery.
+- [ ] Add **Velero backups** for AKS and run **chaos tests** (node/pod failures).
+- [ ] Validate **Proxmox VM restores** from Raspberry Pi NFS storage.
+- [ ] Document **recovery runbooks** (Ingress 5xx, Node NotReady, Policy Deny).
 
 ### Step 4 — SOC Layer
 - [ ] Forward **AKS + Defender** logs into **Log Analytics + Microsoft Sentinel**.
 - [ ] Create **analytic rules** and trigger **Logic Apps playbooks** for automated response.
+- [ ] On bare-metal, forward logs via **Fluent Bit → ELK (Minisforum Mini PC)** for a SOC-lite setup.
+- [ ] Build **Kibana dashboards** + basic detection rules (privileged pod creation, failed logins).
+
+----
+
+## ⚙️ Migration Topology (Azure ↔ Bare-Metal)
+```text
+┌───────────────────────────────────────────────┐   Migrate   ┌───────────────────────────────────────────────┐
+│               Azure AKS (managed)             │  ───────▶   │               Bare-Metal K8s Cluster          │
+│───────────────────────────────────────────────│             │───────────────────────────────────────────────│
+│ Hypervisor:  Azure fabric (managed/hidden)    │             │ Hypervisor:  Proxmox VE                       │
+│===============================================│             │===============================================│
+│ Control Plane: Managed by Azure               │             │ Control Plane: PN64 (master, kubeadm)         │
+│-----------------------------------------------│             │-----------------------------------------------│
+│ Worker Node 0: Standard_B2s VM                │             │ Worker Node 1: NUC-1 (kubeadm worker)         │
+│-----------------------------------------------│             │-----------------------------------------------│
+│ Worker Node 1: Standard_B2s VM                │             │ Worker Node 2: NUC-2 (kubeadm worker)         │
+│-----------------------------------------------│             │-----------------------------------------------│
+│ • Worker Node 2: Standard_B2s VM              │             │ • Backup/Helper:  Raspberry Pi 4B (2 GB, NFS) │
+│ • Workload: NGINX (2 replicas)                │             │ • Workload: NGINX (2 replicas)                │
+│ • Storage:  Azure Disk PVC                    │             │ • Storage:  NFS / local-path PVC (RWX)        │
+│ • Ingress:  Public LB + Ingress Controller    │             │ • Ingress:  MetalLB (L2) + Ingress Controller │
+│ • bservability: Azure Monitor (Log Analytics) │             │ • Observability: Prometheus + Grafana         │
+│ • SOC/Security: Microsoft Sentinel (+Defender)│             │ • SOC/Security: ELK on Minisforum Mini PC     │
+│ • + Logic Apps playbooks                      │             │ • (Beats/Fluent Bit → Logstash → ES → Kibana) │
+└───────────────────────────────────────────────┘             └───────────────────────────────────────────────┘
+```
 
 ----
 
 ## 📊 Feature Mapping
-| Layer / Feature | Azure (AKS)                         | Bare-Metal                                                           |
-| --------------- | ----------------------------------- | -------------------------------------------------------------------- |
-| Hypervisor      | Azure fabric (managed)              | **Proxmox VE**                                                       |
-| Control Plane   | Managed by Azure                    | **PN64 master (kubeadm)**                                            |
-| Workers         | 3× `Standard_B2s` VMs               | **NUC-1**, **NUC-2** (kubeadm)                                       |
-| Backup/Helper   | n/a                                 | **Raspberry Pi** (backups/ops helper)                                |
-| Ingress         | Public LB + Ingress                 | **MetalLB (L2)** + Ingress                                           |
-| Storage         | **Azure Disk PVC**                  | **NFS / local-path PVC**                                             |
-| Observability   | **Azure Monitor + Log Analytics**   | **Prometheus + Grafana**                                             |
-| SOC / Security  | **Microsoft Sentinel** (+ Defender) | **ELK on Minisforum Mini PC ** (Beats/Fluent Bit → LS → ES → Kibana) |
+| Layer / Feature | Azure (AKS)                                          | Bare-Metal                                                                           |
+| --------------- | ---------------------------------------------------- | ------------------------------------------------------------------------------------ |
+| Hypervisor      | Azure fabric (managed/hidden)                        | **Proxmox VE**                                                                       |
+| Control Plane   | **Managed by Azure**                                 | **PN64 master (kubeadm)**                                                            |
+| Worker Node 0   | `Standard_B2s` VM                                    | **NUC-1 (kubeadm worker)**                                                           |
+| Worker Node 1   | `Standard_B2s` VM                                    | **NUC-2 (kubeadm worker)**                                                           |
+| Worker Node 2   | `Standard_B2s` VM                                    | **Raspberry Pi 4B (2 GB) – NFS backup target for Proxmox vzdump**                    |
+| Workload        | **NGINX (2 replicas)**                               | **NGINX (2 replicas)**                                                               |
+| Storage         | **Azure Files PVC (RWX)**                            | **NFS / local-path PVC (RWX)**                                                       |
+| Ingress         | **Public LB + Ingress Controller**                   | **MetalLB (L2) + Ingress Controller**                                                |
+| Observability   | **Azure Monitor Container Insights (Log Analytics)** | **Prometheus + Grafana**                                                             |
+| SOC / Security  | **Microsoft Sentinel** (+ Defender, Logic Apps SOAR) | **ELK on Minisforum Mini PC** (Beats/Fluent Bit → Logstash → Elasticsearch → Kibana) |
 
-----
-
-## ⚙️ Migration Topology
-### Topology Option 1
-```
-┌─────────────────────────────────────────────┐   Migrate   ┌──────────────────────────────────────────────────┐
-│              Azure AKS (managed)            │  ───────▶   │                Bare-Metal K8s Cluster           │
-│─────────────────────────────────────────────│             │──────────────────────────────────────────────────│
-│ Control Plane: Managed by Azure             │             │ Hypervisor: Proxmox                              │
-│=============================================│             │==================================================│    
-│ Worker Node 0: Standard_B2s VM              │             │ Control Plane: PN64 (master, kubeadm)            │
-│---------------------------------------------│             │--------------------------------------------------│
-│ Worker Node 1: Standard_B2s VM              │             │ Worker Node 1: NUC-1 (kubeadm worker)            │
-│---------------------------------------------│             │--------------------------------------------------│
-│ Worker Node 2: Standard_B2s VM              │             │ Worker Node 2: NUC-2 (kubeadm worker)            │
-│---------------------------------------------│             │--------------------------------------------------│       
-│ • Workload: NGINX (2 replicas)              │             │ • Backup Node: Raspberry Pi (backups/ops helper) │
-│ • Storage: Azure Disk PVC                   │             │ • Workload: NGINX (2 replicas)                   │
-│ • Ingress: Public LB + Ingress Controller   │             │ • Storage: NFS / local-path PVC                  │
-│ • Observability: Azure Monitor+Log Analytics│             │ • Ingress: MetalLB (L2) + Ingress Controller     │
-│ • SOC/Security: **Microsoft Sentinel**      │             │ • Observability: Prometheus + Grafana            │
-│ • (AKS + Defender logs → Sentinel analytics)│             │ • SOC/Security: **ELK on Minisforum Nini PC**    │
-│                                             │             │ • (Beats/Fluent-Bit → Logstash → Elasticsearch → │
-│                                             │             │ • Kibana (optional detection rules/SOAR hooks)   │
-└─────────────────────────────────────────────┘             └──────────────────────────────────────────────────┘
-```
-
+-
