@@ -276,7 +276,11 @@ This roadmap outlines the steps necessary to migrate this cloud-based lab to on-
 ## ✅ **Conclusion**
 This lab provides a **portable AKS foundation** with security, observability, and automation that runs in Azure and can be **migrated to a 3-node bare-metal cluster** to simulate a real datacenter infrastructure. It demonstrates the full lifecycle—**deploy → secure → observe → scale → recover**—while highlighting the design trade-offs an Azure Cloud/Security Architect considers. Because the repository includes **ready-to-run scripts and manifests**, learners can quickly reproduce the environment or evolve it into their own on-premises homelab.
 
-🚀 **Next Enhancements (Overview)**
+![6386134ab603091521e212c6_60e452a399f5cfb803e6efbf_deployment_process](https://github.com/user-attachments/assets/772a3640-1cc9-429d-861e-60b74eca9a9e)
+
+---
+
+### 🚀 **Next Enhancements (Overview)**
 
 * Infrastructure & Migration: Expand AKS into a private, policy-enforced setup with ACR, networking guardrails, and IaC. Add a runbook to migrate the same workload from Azure VMs to a 3-node bare-metal cluster (mini PCs) to simulate real datacenter infra.
 * Automation: Use GitHub Actions with OIDC for full CI/CD—build, scan, push to ACR, deploy to AKS, run smoke tests, and enforce policies automatically.
@@ -284,18 +288,6 @@ This lab provides a **portable AKS foundation** with security, observability, an
 * SOC Layer: Connect AKS + Defender logs into Microsoft Sentinel, build sample analytic rules, and trigger Logic Apps playbooks for automated response.
 * Docs & Ops Guides: Create a reference architecture diagram, migration guide, and incident runbooks so anyone can deploy, monitor, and recover the setup end-to-end.
 > *Feel free to fork this repo, adapt it to your environment, and share improvements via pull requests.*
-
-| Layer / Feature  | Implementation                                  | Purpose                                  |
-| ---------------- | ----------------------------------------------- | ---------------------------------------- |
-| Control Plane    | Managed by Azure                                | API server, scheduler, etcd              |
-| Worker Nodes (3) | `Standard_B2s` VMs                              | Run pods and services                    |
-| Workload Example | NGINX Deployment (2 replicas)                   | Demonstrate HA web service               |
-| Storage          | Azure Disk PVC                                  | Persist data across pod restarts         |
-| Networking       | LoadBalancer Service + Ingress                  | Expose application externally            |
-| Observability    | Azure Monitor + Metrics-Server + HPA            | Logs, metrics, auto-scaling              |
-| Security (SOC)   | Log Analytics + Microsoft Sentinel + Logic Apps | Threat detection + automated response    |
-| Resilience       | Velero Backups + Chaos Testing                  | Backup/restore + failure recovery drills |
-| Migration Path   | Bare-metal 3-node cluster (mini PCs)            | Simulate real datacenter infrastructure  |
 
 
 ```
@@ -315,7 +307,17 @@ This lab provides a **portable AKS foundation** with security, observability, an
                  GitHub Actions (OIDC) — build → scan → push (ACR) → deploy → smoke test
 ```
 
-![6386134ab603091521e212c6_60e452a399f5cfb803e6efbf_deployment_process](https://github.com/user-attachments/assets/772a3640-1cc9-429d-861e-60b74eca9a9e)
+| Layer / Feature  | Implementation                                  | Purpose                                  |
+| ---------------- | ----------------------------------------------- | ---------------------------------------- |
+| Control Plane    | Managed by Azure                                | API server, scheduler, etcd              |
+| Worker Nodes (3) | `Standard_B2s` VMs                              | Run pods and services                    |
+| Workload Example | NGINX Deployment (2 replicas)                   | Demonstrate HA web service               |
+| Storage          | Azure Disk PVC                                  | Persist data across pod restarts         |
+| Networking       | LoadBalancer Service + Ingress                  | Expose application externally            |
+| Observability    | Azure Monitor + Metrics-Server + HPA            | Logs, metrics, auto-scaling              |
+| Security (SOC)   | Log Analytics + Microsoft Sentinel + Logic Apps | Threat detection + automated response    |
+| Resilience       | Velero Backups + Chaos Testing                  | Backup/restore + failure recovery drills |
+| Migration Path   | Bare-metal 3-node cluster (mini PCs)            | Simulate real datacenter infrastructure  |
 
 
 ---
